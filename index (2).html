@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una Cartita Para Ti 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --rosa: #ffdbe8;
+  --rosa2: #ffeef5;
+  --rosa3: #ff8eb3;
+  --texto: #5a4a52;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffeef5, #ffdce8, #ffeef5);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+/* Brillos */
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: .8;
+  animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+  50% { opacity: .2; transform: scale(.5); }
+}
+
+/* Corazones flotando (SVG) */
+.heart {
+  position: fixed;
+  bottom: -40px;
+  animation: floatUp linear forwards;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120vh) scale(1.6) rotate(15deg); opacity: 0; }
+}
+
+.screen {
+  display: none;
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+  z-index: 2;
+  animation: fade .8s ease;
+}
+
+.active {
+  display: block;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: none; }
+}
+
+.fade-text {
+  animation: fade .8s ease;
+}
+
+.clickable {
+  width: 280px;
+  max-width: 90%;
+  cursor: pointer;
+  transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.15));
+}
+
+.clickable:hover {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.card {
+  background: #fffafc;
+  border: 3px solid #ffd0e0;
+  border-radius: 25px;
+  padding: 40px 30px;
+  box-shadow: 0 20px 50px rgba(255,130,170,.2);
+  position: relative;
+  min-height: 350px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card::before {
+  content: "💖";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.2rem;
+  color: #ff5f94;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(255, 95, 148, 0.15);
+}
+
+.carta {
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: var(--texto);
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carta p {
+  margin-bottom: 15px;
+}
+
+.firma {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  color: #ff5f94;
+  margin-top: 25px;
+  display: none; 
+}
+
+.botones-carta {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* ================= DISEÑO DE BOTONES PREMIUM ================= */
+.btn {
+  background: linear-gradient(135deg, #ff7ba8, #ff4d8c);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 6px 15px rgba(255, 77, 140, 0.3);
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #ff8eb3, #ff3377);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 77, 140, 0.45);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px rgba(255, 77, 140, 0.3);
+}
+
+.btn-outline {
+  background: white;
+  color: #ff5f94;
+  border: 2px solid #ff7ba8;
+  box-shadow: 0 6px 15px rgba(255, 123, 168, 0.1);
+}
+
+.btn-outline:hover {
+  background: #fff5f8;
+  color: #ff3377;
+  border-color: #ff3377;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 123, 168, 0.2);
+}
+/* ============================================================= */
+
+.music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 99;
+  background: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,.15);
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.music-btn:hover {
+  transform: scale(1.1);
+}
+
+@media(max-width: 600px) {
+  h1 { font-size: 2.5rem; }
+  .card { padding: 30px 20px; min-height: 380px; }
+  .carta { font-size: 1.05rem; }
+  .botones-carta { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="contigo.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<div class="screen active" id="screen1">
+  <img class="clickable" src="https://i.pinimg.com/736x/a1/92/d5/a192d5e43af550b13a2cf7e46fd05cbb.jpg" onclick="showScreen(2)">
+</div>
+
+<div class="screen" id="screen2">
+  <img class="clickable" src="https://i.pinimg.com/736x/9f/c6/43/9fc6433cb7a0f57f372518aed30a9100.jpg" onclick="showScreen(3)">
+</div>
+
+<div class="screen" id="screen3">
+  <img class="clickable" src="https://i.pinimg.com/736x/df/92/93/df929364c1816ffbeff677819abcf8cf.jpg" onclick="showScreen(4)">
+</div>
+
+<div class="screen" id="screen4">
+  <div class="card">
+    <h1 id="titulo"></h1>
+    <div class="carta fade-text" id="contenidoCarta"></div>
+    <div class="firma fade-text" id="firma"></div>
+    
+    <div class="botones-carta" id="botonesCarta"></div>
+  </div>
+</div>
+
+<script>
+let carta = {
+  titulo: "Mi Amorcito 💖",
+  paginas: [
+    "Llegaste a mi vida y, de pronto, todo el desorden que tenía dentro se calmó. No hizo falta que el mundo cambiara, porque cambiar mi mundo fue lo que hiciste tú con solo mirarme.",
+    "Eres esa luz tranquila que ilumina mis días, esa paz que tanto le pedía a la vida sin saber que venía en tu sonrisa. Dios te hizo con una delicadeza increíble, mi amor; puso en tus ojos una ternura que calma cualquier tristeza y, en tu forma de ser, una magia tan bonita que es imposible no querer cuidarte siempre.",
+    "Eres mi refugio, mi lugar seguro y lo más hermoso que tengo en este mundo. Por eso, aunque me falten las palabras para decirte todo lo que causas en mí, mi corazón te lo recuerda en cada latido: que eres mi principio, mi fin y el regalo más bello que Dios me dio para caminar contigo de la mano."
+  ],
+  firma: "Con todo mi amor,<br>Jesús ❤️"
+};
+
+let paginaActual = 0;
+
+function renderCarta() {
+  document.getElementById("titulo").innerHTML = carta.titulo;
+  
+  const contenido = document.getElementById("contenidoCarta");
+  contenido.classList.remove("fade-text");
+  void contenido.offsetWidth; 
+  contenido.classList.add("fade-text");
+  
+  contenido.innerHTML = `<p>${carta.paginas[paginaActual]}</p>`;
+  
+  const firma = document.getElementById("firma");
+  const botones = document.getElementById("botonesCarta");
+  
+  if (paginaActual < carta.paginas.length - 1) {
+    firma.style.display = "none";
+    let htmlBotones = "";
+    if (paginaActual > 0) {
+      htmlBotones += `<button class="btn btn-outline" onclick="cambiarPagina(-1)">⬅️ Atrás</button>`;
+    }
+    htmlBotones += `<button class="btn" onclick="cambiarPagina(1)">Siguiente ✨</button>`;
+    botones.innerHTML = htmlBotones;
+  } else {
+    firma.style.display = "block";
+    firma.innerHTML = carta.firma;
+    botones.innerHTML = `
+      <button class="btn btn-outline" onclick="cambiarPagina(-1)">⬅️ Atrás</button>
+      <button class="btn" onclick="showScreen(1)">Volver a empezar 💖</button>
+    `;
+  }
+}
+
+function cambiarPagina(direccion) {
+  paginaActual += direccion;
+  renderCarta();
+}
+
+function showScreen(n) {
+  if(n === 1) {
+    paginaActual = 0;
+    renderCarta();
+  }
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen" + n).classList.add("active");
+}
+
+function crearCorazon() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  const colors = ['#ff4d8c', '#ff7ba8', '#ffb6c1'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  heart.innerHTML = `<svg viewBox="0 0 32 29.6" style="width:100%; height:100%; fill:${color};"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,16,21.2,16,21.2s16-11.8,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>`;
+  heart.style.left = Math.random() * 100 + "vw";
+  const size = 20 + Math.random() * 25;
+  heart.style.width = size + "px";
+  heart.style.height = size + "px";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(crearCorazon, 400);
+
+for(let i=0; i<40; i++) {
+  const s = document.createElement("div");
+  s.className = "sparkle";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  s.style.animationDelay = Math.random() * 4 + "s";
+  document.body.appendChild(s);
+}
+
+function toggleMusic() {
+  const music = document.getElementById("music");
+  if(music.paused) {
+    music.play();
+  } else {
+    music.pause();
+  }
+}
+
+document.body.addEventListener("click", () => {
+  const music = document.getElementById("music");
+  if(music.paused) {
+    music.volume = 0.6;
+    music.play().catch(()=>console.log("Audio esperando interacción"));
+  }
+}, {once: true});
+
+renderCarta();
+</script>
+
+</body>
+</html>
